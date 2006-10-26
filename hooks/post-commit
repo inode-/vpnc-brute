@@ -1,0 +1,6 @@
+#!/bin/sh
+
+REPOS="$1"
+REV="$2"
+/usr/bin/svn-mailer --commit --config hooks/svnmailer.conf --repository $REPOS --revision $REV
+
