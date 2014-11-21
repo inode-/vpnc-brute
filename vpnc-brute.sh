@@ -48,4 +48,6 @@ do
 		echo "Found valid credentials $USERNAME:$PASSWORD"
 	fi
 
+	sleep 0.3
+
 done
