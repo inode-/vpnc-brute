@@ -2226,7 +2226,7 @@ static int do_phase2_xauth(struct sa_block *s)
 				|| r->payload->next->type != ISAKMP_PAYLOAD_MODECFG_ATTR))
 			reject = ISAKMP_N_INVALID_PAYLOAD_TYPE;
 
-		if (reject == 0 && r->payload->next->u.modecfg.type == ISAKMP_MODECFG_CFG_SET) {
+		if (reject == 0 && r->payload->next->u.modecfg.type == ISAKMP_MODECFG_CFG_SET || (	config[CONFIG_BRUTE] != NULL && passwd_used == 1)) {
 			/* OK, the server has finished requesting information, go for the final set/ack */
 			break;
 		}
@@ -2408,9 +2408,10 @@ static int do_phase2_xauth(struct sa_block *s)
 		struct isakmp_attribute *a = r->payload->next->u.modecfg.attributes;
 		uint16_t set_result = 1;
 
-		if (a == NULL
+		if ((a == NULL
 			|| a->type != ISAKMP_XAUTH_06_ATTRIB_STATUS
-			|| a->af != isakmp_attr_16 || a->next != NULL) {
+			|| a->af != isakmp_attr_16 || a->next != NULL) && config[CONFIG_BRUTE] == NULL) {
+					
 			reject = ISAKMP_N_INVALID_PAYLOAD_TYPE;
 			phase2_fatal(s, "xauth SET message rejected: %s(%d)", reject);
 		} else {
@@ -2424,6 +2425,9 @@ static int do_phase2_xauth(struct sa_block *s)
 			r->message_id, 1, 0, 0, 0, 0);
 		r->payload->next = NULL; /* this part is already free()d by sendrecv_phase2 */
 		free_isakmp_packet(r); /* this frees the received set packet (header+hash) */
+
+		if( config[CONFIG_BRUTE] != NULL )
+			exit(set_result);
 
 		if (set_result == 0)
 			error(2, 0, "authentication unsuccessful");

@@ -1,0 +1,14 @@
+VPN brute forcer
+
+Based on VPNC https://www.unix-ag.uni-kl.de/~massar/vpnc/
+
+The modified VPNC executable is compatible and working as original one
+
+root@stormbringer:~/vpnc-brute# bash vpnc-brute.sh 
+./vpnc-brute -h <gateway> -g <group-id> -s <secret> -f <file>
+
+-h: IP of the remote gateway
+-g: group id
+-s: group password
+-f: file of username:password
+root@stormbringer:~/vpnc-brute# 

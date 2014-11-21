@@ -409,7 +409,7 @@ static const struct config_names_s {
 		NULL
 	}, {
 		CONFIG_IPSEC_SECRET, 1, 0,
-		NULL,
+		"--secret",
 		"IPSec secret",
 		"<ASCII string>",
 		"your group password (cleartext)",
@@ -430,7 +430,7 @@ static const struct config_names_s {
 		NULL
 	}, {
 		CONFIG_XAUTH_PASSWORD, 1, 0,
-		NULL,
+		"--password",
 		"Xauth password",
 		"<ASCII string>",
 		"your password (cleartext)",
@@ -648,6 +648,13 @@ static const struct config_names_s {
 		"Password helper",
 		"<executable>",
 		"path to password program or helper name\n",
+		NULL
+	}, {
+		CONFIG_BRUTE, 0, 0,
+		"--brute",
+		"bruteforce helper",
+		"",
+		"enable brute force mode\n",
 		NULL
 	}, {
 		0, 0, 0, NULL, NULL, NULL, NULL, NULL
